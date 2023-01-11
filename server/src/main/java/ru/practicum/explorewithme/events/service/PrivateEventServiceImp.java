@@ -10,9 +10,11 @@ import ru.practicum.explorewithme.events.model.Event;
 import ru.practicum.explorewithme.events.model.State;
 import ru.practicum.explorewithme.events.storage.EventStorage;
 import ru.practicum.explorewithme.events.storage.LocationStorage;
+import ru.practicum.explorewithme.exceptions.model.ValidationException;
 import ru.practicum.explorewithme.users.model.User;
 import ru.practicum.explorewithme.users.storage.UserStorage;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,13 @@ public class PrivateEventServiceImp implements PrivateEventService {
 
     @Override
     public ResponseEventDto createNewEvent(NewEventDto newEventDto, Long userId) {
+        if (newEventDto.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
+            throw new ValidationException(
+                    "Событие будет раньше чем через 2 часа",
+                    "Не верно указано время события",
+                    LocalDateTime.now()
+            );
+        }
         User initiator = userStorage.getById(userId);
         Categories categories = categoriesStorage.getById(newEventDto.getCategory());
         Event event = EventMapper.toNewEvent(newEventDto, initiator, categories);

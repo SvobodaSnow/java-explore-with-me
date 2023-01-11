@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.practicum.explorewithme.exceptions.model.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -116,6 +117,20 @@ public class ErrorHandler {
                 "message", e.getMessage(),
                 "reason", "",
                 "status", "CONFLICT",
+                "timestamp", LocalDateTime.now().toString()
+        );
+    }
+
+    @ExceptionHandler({EntityNotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, String> handlerEntityNotFoundException(
+            final EntityNotFoundException e
+    ) {
+        log.error(e.getMessage());
+        return Map.of(
+                "message", e.getMessage(),
+                "reason", "",
+                "status", "NOT_FOUND",
                 "timestamp", LocalDateTime.now().toString()
         );
     }

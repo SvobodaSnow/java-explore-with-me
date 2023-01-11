@@ -23,6 +23,8 @@ public class PublicCategoriesServiceImp implements PublicCategoriesService {
 
     @Override
     public Categories getCategoryById(Long catId) {
-        return categoriesStorage.getById(catId);
+        Categories categories = categoriesStorage.getById(catId);
+        String name = categories.getName();
+        return categories;
     }
 }
