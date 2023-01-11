@@ -19,7 +19,7 @@ public class PublicCompilationController {
 
     @GetMapping
     public List<ResponseCompilationDto> getCompilations(
-            @RequestParam boolean pinned,
+            @RequestParam(required = false) Boolean pinned,
             @RequestParam(defaultValue = "0") int from,
             @RequestParam(defaultValue = "10") int size
     ) {

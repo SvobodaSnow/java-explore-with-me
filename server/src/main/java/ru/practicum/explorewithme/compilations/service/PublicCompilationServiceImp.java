@@ -25,10 +25,16 @@ public class PublicCompilationServiceImp implements PublicCompilationService {
     private EventStorage eventStorage;
 
     @Override
-    public List<ResponseCompilationDto> getCompilations(boolean pinned, int from, int size) {
+    public List<ResponseCompilationDto> getCompilations(Boolean pinned, int from, int size) {
         int page = from / size;
+        List<Compilation> compilations;
+        if (pinned == null) {
+            compilations = compilationStorage.findAll(PageRequest.of(page, size)).getContent();
+        } else {
+            compilations = compilationStorage.findByPinned(pinned, PageRequest.of(page, size));
+        }
         List<ResponseCompilationDto> responseCompilationDtoList = new ArrayList<>();
-        for (Compilation compilation : compilationStorage.findByPinned(pinned, PageRequest.of(page, size))) {
+        for (Compilation compilation : compilations) {
             List<ResponseEventDto> responseEventDtoList = new ArrayList<>();
             for (Event event : compilation.getEvents()) {
                 event.setViews(event.getViews() + 1);
