@@ -37,14 +37,20 @@ public class AdminEventServiceImp implements AdminEventService {
         LocalDateTime rangeStartTime = LocalDateTime.parse(rangeStart);
         LocalDateTime rangeEndTime = LocalDateTime.parse(rangeEnd);
         int page = from / size;
-        List<Event> events = eventStorage.findByInitiator_IdInAndStateInAndCategory_IdInAndEventDateBetween(
-                users,
-                states,
-                categories,
-                rangeStartTime,
-                rangeEndTime,
-                PageRequest.of(page, size)
-        );
+        List<Event> events;
+        if (users == null && states == null && categories == null) {
+            events = eventStorage.findAll();
+        } else {
+            events = eventStorage.findByInitiator_IdInAndStateInAndCategory_IdInAndEventDateBetween(
+                    users,
+                    states,
+                    categories,
+                    rangeStartTime,
+                    rangeEndTime,
+                    PageRequest.of(page, size)
+            );
+        }
+
         List<ResponseEventDto> responseEventDtoList = new ArrayList<>();
         for (Event event : events) {
             responseEventDtoList.add(EventMapper.toResponseEventDto(event));

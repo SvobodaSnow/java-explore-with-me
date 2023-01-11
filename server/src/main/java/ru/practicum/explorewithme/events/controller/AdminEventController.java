@@ -21,11 +21,11 @@ public class AdminEventController {
 
     @GetMapping
     public List<ResponseEventDto> getEvents(
-            @RequestParam List<Long> users,
-            @RequestParam List<State> states,
-            @RequestParam List<Long> categories,
-            @RequestParam String rangeStart,
-            @RequestParam String rangeEnd,
+            @RequestParam(required = false) List<Long> users,
+            @RequestParam(required = false) List<State> states,
+            @RequestParam(required = false) List<Long> categories,
+            @RequestParam(defaultValue = "0000-01-01T00:00:00") String rangeStart,
+            @RequestParam(defaultValue = "9999-12-31T00:00:00") String rangeEnd,
             @RequestParam(defaultValue = "0") int from,
             @RequestParam(defaultValue = "10") int size
     ) {
