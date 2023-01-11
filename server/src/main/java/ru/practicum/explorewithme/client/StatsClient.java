@@ -1,5 +1,6 @@
 package ru.practicum.explorewithme.client;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -10,8 +11,12 @@ import java.util.Map;
 
 @Service
 public class StatsClient {
-    private final String uriStats = "http://localhost:9090";
+    private final String uriStats;
     private final RestTemplate rest = new RestTemplate();
+
+    public StatsClient(@Value("${EXPLOREWITHME_STATS_URL}") String uriStats) {
+        this.uriStats = uriStats;
+    }
 
     public ResponseEntity<Object> sendStates(EndpointHit body) {
         return makeAndSendRequest(HttpMethod.POST, "/hit", null, body);

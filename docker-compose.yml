@@ -3,13 +3,13 @@ services:
   stats-server:
     build: ./stats
     image: explorewithme-stats
-    container_name: stats
+    container_name: stats-server
     ports:
       - "9090:9090"
 
   stats-db:
     image: postgres:14-alpine
-    container_name: db_stats
+    container_name: stats-db
     ports:
       - "6511:5412"
     environment:
@@ -20,13 +20,17 @@ services:
   ewm-service:
     build: ./server
     image: explorewithme-server
-    container_name: server
+    container_name: ewm-service
     ports:
       - "8080:8080"
+    depends_on:
+      - "stats-server"
+#    entrypoint:
+#      - EXPLOREWITHME_STATS_URL=http://stats-server:9090
 
   ewm-db:
     image: postgres:14-alpine
-    container_name: db_server
+    container_name: ewm-db
     ports:
       - "6541:5432"
     environment:
