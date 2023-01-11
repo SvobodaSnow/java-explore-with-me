@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface EndpointHitStorage extends JpaRepository<EndpointHit, Long> {
     long countByAppContainsIgnoreCase(String app);
-    List<EndpointHit> findByUriAndTimestampBetween(String uri, LocalDateTime timestampStart, LocalDateTime timestampEnd);
-
+    List<EndpointHit> findByUriAndTimestampBetween(
+            String uri,
+            LocalDateTime timestampStart,
+            LocalDateTime timestampEnd
+    );
 }
