@@ -1,10 +1,8 @@
 package ru.practicum.explorewithme.events.storage;
 
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.lang.Nullable;
 import ru.practicum.explorewithme.events.model.Event;
 import ru.practicum.explorewithme.events.model.State;
 
