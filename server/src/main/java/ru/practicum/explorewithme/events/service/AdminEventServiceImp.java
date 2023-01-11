@@ -13,6 +13,7 @@ import ru.practicum.explorewithme.events.model.State;
 import ru.practicum.explorewithme.events.storage.EventStorage;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +35,14 @@ public class AdminEventServiceImp implements AdminEventService {
             int from,
             int size
     ) {
-        LocalDateTime rangeStartTime = LocalDateTime.parse(rangeStart);
-        LocalDateTime rangeEndTime = LocalDateTime.parse(rangeEnd);
+        LocalDateTime rangeStartTime = LocalDateTime.parse(
+                rangeStart,
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        );
+        LocalDateTime rangeEndTime = LocalDateTime.parse(
+                rangeEnd,
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        );
         int page = from / size;
         List<Event> events;
         if (users == null && states == null && categories == null) {
