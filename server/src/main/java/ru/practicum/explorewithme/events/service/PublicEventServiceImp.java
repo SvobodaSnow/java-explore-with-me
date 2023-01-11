@@ -17,7 +17,6 @@ import ru.practicum.explorewithme.events.storage.EventStorage;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 @Primary
@@ -32,7 +31,7 @@ public class PublicEventServiceImp implements PublicEventService {
     public List<ShortResponseEventDto> getEvents(
             String text,
             List<Long> categories,
-            boolean paid,
+            Boolean paid,
             String rangeStart,
             String rangeEnd,
             boolean onlyAvailable,
@@ -42,32 +41,105 @@ public class PublicEventServiceImp implements PublicEventService {
             HttpServletRequest request
     ) {
         int page = from / size;
-        List<Event> events;
+        List<Event> events = new ArrayList<>();
         LocalDateTime rangeStartTime = LocalDateTime.parse(rangeStart);
         LocalDateTime rangeEndTime = LocalDateTime.parse(rangeEnd);
 
-        if (onlyAvailable) {
-            events = eventStorage.getEventsOnlyAvailable(
-                    text,
-                    text,
-                    categories,
-                    paid,
-                    rangeStartTime,
-                    rangeEndTime,
-                    State.PUBLISHED,
-                    PageRequest.of(page, size)
-            );
-        } else {
-            events = eventStorage.getEvents(
-                    text,
-                    text,
-                    categories,
-                    paid,
-                    rangeStartTime,
-                    rangeEndTime,
-                    State.PUBLISHED,
-                    PageRequest.of(page, size)
-            );
+        switch (sort) {
+            case "EVENT_DATE":
+                if (onlyAvailable) {
+                    if (categories == null && paid == null) {
+                        events = eventStorage.getEventsOnlyAvailableOrderByEventDate(
+                                text,
+                                text,
+                                rangeStartTime,
+                                rangeEndTime,
+                                State.PUBLISHED,
+                                PageRequest.of(page, size)
+                        );
+                    } else {
+                        events = eventStorage.getEventsOnlyAvailableOrderByEventDate(
+                                text,
+                                text,
+                                categories,
+                                paid,
+                                rangeStartTime,
+                                rangeEndTime,
+                                State.PUBLISHED,
+                                PageRequest.of(page, size)
+                        );
+                    }
+                } else {
+                    if (categories == null && paid == null) {
+                        events = eventStorage.getEventsOrderByEventDate(
+                                text,
+                                text,
+                                rangeStartTime,
+                                rangeEndTime,
+                                State.PUBLISHED,
+                                PageRequest.of(page, size)
+                        );
+                    } else {
+                        events = eventStorage.getEventsOrderByEventDate(
+                                text,
+                                text,
+                                categories,
+                                paid,
+                                rangeStartTime,
+                                rangeEndTime,
+                                State.PUBLISHED,
+                                PageRequest.of(page, size)
+                        );
+                    }
+                }
+                break;
+            case "VIEWS":
+                if (onlyAvailable) {
+                    if (categories == null && paid == null) {
+                        events = eventStorage.getEventsOnlyAvailableOrderByViews(
+                                text,
+                                text,
+                                rangeStartTime,
+                                rangeEndTime,
+                                State.PUBLISHED,
+                                PageRequest.of(page, size)
+                        );
+                    } else {
+                        events = eventStorage.getEventsOnlyAvailableOrderByViews(
+                                text,
+                                text,
+                                categories,
+                                paid,
+                                rangeStartTime,
+                                rangeEndTime,
+                                State.PUBLISHED,
+                                PageRequest.of(page, size)
+                        );
+                    }
+                } else {
+                    if (categories == null && paid == null) {
+                        events = eventStorage.getEventsOrderByViews(
+                                text,
+                                text,
+                                rangeStartTime,
+                                rangeEndTime,
+                                State.PUBLISHED,
+                                PageRequest.of(page, size)
+                        );
+                    } else {
+                        events = eventStorage.getEventsOrderByViews(
+                                text,
+                                text,
+                                categories,
+                                paid,
+                                rangeStartTime,
+                                rangeEndTime,
+                                State.PUBLISHED,
+                                PageRequest.of(page, size)
+                        );
+                    }
+                }
+                break;
         }
 
         List<ShortResponseEventDto> shortResponseEventDtoList = new ArrayList<>();
@@ -87,21 +159,6 @@ public class PublicEventServiceImp implements PublicEventService {
 
         EndpointHit endpointHit = new EndpointHit(null, app.toString(), request.getRequestURI(), request.getRemoteAddr(), LocalDateTime.now());
         statsClient.sendStates(endpointHit);
-
-        switch (sort) {
-            case "EVENT_DATE":
-                Comparator<ShortResponseEventDto> sortEventDate = (o1, o2) ->
-                        o1.getEventDate().compareTo(o2.getEventDate());
-                shortResponseEventDtoList.sort(sortEventDate);
-                break;
-            case "VIEWS":
-                Comparator<ShortResponseEventDto> sortViews = (o1, o2) ->
-                        (int) (o1.getViews() - o2.getViews());
-                shortResponseEventDtoList.sort(sortViews);
-                break;
-            default:
-                //Добавить ошибку
-        }
 
         return shortResponseEventDtoList;
     }

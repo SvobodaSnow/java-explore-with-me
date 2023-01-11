@@ -21,13 +21,13 @@ public class PublicEventController {
 
     @GetMapping
     public List<ShortResponseEventDto> getEvents(
-            @RequestParam String text,
-            @RequestParam List<Long> categories,
-            @RequestParam boolean paid,
-            @RequestParam String rangeStart,
-            @RequestParam String rangeEnd,
-            @RequestParam boolean onlyAvailable,
-            @RequestParam String sort,
+            @RequestParam(defaultValue = "") String text,
+            @RequestParam(required = false) List<Long> categories,
+            @RequestParam(required = false) Boolean paid,
+            @RequestParam(defaultValue = "0000-01-01T00:00:00") String rangeStart,
+            @RequestParam(defaultValue = "9999-12-31T00:00:00") String rangeEnd,
+            @RequestParam(required = false) boolean onlyAvailable,
+            @RequestParam(defaultValue = "EVENT_DATE") String sort,
             @RequestParam(defaultValue = "0") int from,
             @RequestParam(defaultValue = "10") int size,
             HttpServletRequest request
