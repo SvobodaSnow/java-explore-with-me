@@ -1,6 +1,7 @@
 package ru.practicum.explorewithme.exceptions;
 
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.PropertyValueException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -131,6 +132,20 @@ public class ErrorHandler {
                 "message", e.getMessage(),
                 "reason", "",
                 "status", "NOT_FOUND",
+                "timestamp", LocalDateTime.now().toString()
+        );
+    }
+
+    @ExceptionHandler({PropertyValueException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handlerPropertyValueException(
+            final PropertyValueException e
+    ) {
+        log.error(e.getMessage());
+        return Map.of(
+                "message", e.getMessage(),
+                "reason", "",
+                "status", "BAD_REQUEST",
                 "timestamp", LocalDateTime.now().toString()
         );
     }
