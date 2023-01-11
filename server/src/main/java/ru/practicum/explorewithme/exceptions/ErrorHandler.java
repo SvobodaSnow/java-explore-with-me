@@ -2,6 +2,7 @@ package ru.practicum.explorewithme.exceptions;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -69,6 +70,20 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handlerHttpRequestMethodNotSupportedException(
             final HttpRequestMethodNotSupportedException e
+    ) {
+        log.error(e.getMessage());
+        return Map.of(
+                "message", e.getMessage(),
+                "reason", "",
+                "status", "BAD_REQUEST",
+                "timestamp", LocalDateTime.now().toString()
+        );
+    }
+
+    @ExceptionHandler({HttpMessageNotReadableException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handlerHttpMessageNotReadableException(
+            final HttpMessageNotReadableException e
     ) {
         log.error(e.getMessage());
         return Map.of(
