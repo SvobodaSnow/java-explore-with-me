@@ -157,7 +157,7 @@ public class PublicEventServiceImp implements PublicEventService {
             app.delete(app.length() - 2, app.length());
         }
 
-        EndpointHit endpointHit = new EndpointHit(null, app.toString(), request.getRequestURI(), request.getRemoteAddr(), LocalDateTime.now());
+//        EndpointHit endpointHit = new EndpointHit(null, app.toString(), request.getRequestURI(), request.getRemoteAddr(), LocalDateTime.now());
 //        statsClient.sendStates(endpointHit);
 
         return shortResponseEventDtoList;
