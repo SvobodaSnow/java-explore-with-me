@@ -1,7 +1,6 @@
 package ru.practicum.explorewithme.events.model;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 import ru.practicum.explorewithme.categories.model.Categories;
 import ru.practicum.explorewithme.users.model.User;
 

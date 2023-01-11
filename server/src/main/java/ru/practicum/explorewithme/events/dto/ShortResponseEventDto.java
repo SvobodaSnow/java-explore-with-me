@@ -1,5 +1,6 @@
 package ru.practicum.explorewithme.events.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class ShortResponseEventDto {
     private String annotation;
     private Categories category;
     private int confirmedRequests;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime eventDate;
     private User initiator;
     private boolean paid;
