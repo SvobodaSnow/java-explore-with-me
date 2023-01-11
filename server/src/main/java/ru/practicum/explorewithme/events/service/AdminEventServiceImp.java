@@ -102,7 +102,7 @@ public class AdminEventServiceImp implements AdminEventService {
     @Override
     public ResponseEventDto rejectEvent(Long eventId) {
         Event event = eventStorage.getById(eventId);
-        event.setState(State.REJECT);
+        event.setState(State.CANCELED);
         return EventMapper.toResponseEventDto(eventStorage.save(event));
     }
 }
