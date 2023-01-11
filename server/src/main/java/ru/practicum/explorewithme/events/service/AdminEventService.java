@@ -4,7 +4,6 @@ import ru.practicum.explorewithme.events.dto.NewEventDto;
 import ru.practicum.explorewithme.events.dto.ResponseEventDto;
 import ru.practicum.explorewithme.events.model.State;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface AdminEventService {

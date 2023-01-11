@@ -62,22 +62,4 @@ public class StatsServiceImp implements StatsService {
 
         return viewStatsList;
     }
-
-    @Override
-    public List<ViewStats> getViews(List<Long> ids) {
-        List<ViewStats> viewStatsList = new ArrayList<>();
-        for (Long id : ids) {
-            String app = "GetEvent " + id;
-            String uri = "/events/" + id;
-            long count = endpointHitStorage.countByAppContainsIgnoreCase(app);
-            viewStatsList.add(
-                    new ViewStats(
-                            app,
-                            uri,
-                            (int) count
-                    )
-            );
-        }
-        return viewStatsList;
-    }
 }

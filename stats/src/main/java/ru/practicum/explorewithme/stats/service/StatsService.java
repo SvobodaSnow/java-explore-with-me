@@ -9,6 +9,4 @@ public interface StatsService {
     void saveStatistic(EndpointHit endpointHit);
 
     List<ViewStats> getStats(String start, String end, List<String> uris, boolean unique);
-
-    List<ViewStats> getViews(List<Long> ids);
 }

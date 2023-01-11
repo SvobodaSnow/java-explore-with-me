@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface RequestStorage extends JpaRepository<Request, Long> {
     List<Request> findByEventId(Long eventId);
-    Request findByRequester_IdAndEventId(Long id, Long eventId);
-    List<Request> findByRequester_Id(Long id);
 
+    Request findByRequester_IdAndEventId(Long id, Long eventId);
+
+    List<Request> findByRequester_Id(Long id);
 }

@@ -35,10 +35,4 @@ public class StatsController {
         log.info("Получен запрос на формитрвоание статистики");
         return statsService.getStats(start, end, uris, unique);
     }
-
-    @GetMapping("/views")
-    public List<ViewStats> getViews(@RequestParam List<Long> ids) {
-        log.info("Получен запрос на формирование количества просмотров для событий с ID " + ids);
-        return null;
-    }
 }

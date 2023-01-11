@@ -19,7 +19,16 @@ public interface EventStorage extends JpaRepository<Event, Long> {
             "and e.eventDate between ?5 and ?6 " +
             "and e.state = ?7 " +
             "and e.available = true")
-    List<Event> findByAnnotationContainsIgnoreCaseOrDescriptionContainsIgnoreCaseAndCategory_IdInAndPaidAndEventDateBetweenAndStateAndAvailableTrue(String annotation, String description, Collection<Long> ids, boolean paid, LocalDateTime eventDateStart, LocalDateTime eventDateEnd, State state, Pageable pageable);
+    List<Event> getEventsOnlyAvailable(
+            String annotation,
+            String description,
+            Collection<Long> ids,
+            boolean paid,
+            LocalDateTime eventDateStart,
+            LocalDateTime eventDateEnd,
+            State state,
+            Pageable pageable
+    );
 
     @Query("select e from Event e " +
             "where (upper(e.annotation) like upper(concat('%', ?1, '%')) " +
@@ -28,10 +37,20 @@ public interface EventStorage extends JpaRepository<Event, Long> {
             "and e.paid = ?4 " +
             "and e.eventDate between ?5 and ?6 " +
             "and e.state = ?7")
-    List<Event> findByAnnotationContainsIgnoreCaseOrDescriptionContainsIgnoreCaseAndCategory_IdInAndPaidAndEventDateBetweenAndState(String annotation, String description, Collection<Long> ids, boolean paid, LocalDateTime eventDateStart, LocalDateTime eventDateEnd, State state, Pageable pageable);
+    List<Event> getEvents(
+            String annotation,
+            String description,
+            Collection<Long> ids,
+            boolean paid,
+            LocalDateTime eventDateStart,
+            LocalDateTime eventDateEnd,
+            State state,
+            Pageable pageable
+    );
+
     Event findByIdAndState(Long id, State state);
 
-    List<Event> findByInitiator_IdInAndStateInAndCategory_IdInAndEventDateAfterAndEventDateBefore(
+    List<Event> findByInitiator_IdInAndStateInAndCategory_IdInAndEventDateBetween(
             List<Long> initiatorId,
             List<State> state,
             List<Long> categoryId,

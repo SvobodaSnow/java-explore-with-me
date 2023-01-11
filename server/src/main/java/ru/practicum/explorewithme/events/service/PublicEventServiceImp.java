@@ -47,9 +47,27 @@ public class PublicEventServiceImp implements PublicEventService {
         LocalDateTime rangeEndTime = LocalDateTime.parse(rangeEnd);
 
         if (onlyAvailable) {
-            events = eventStorage.findByAnnotationContainsIgnoreCaseOrDescriptionContainsIgnoreCaseAndCategory_IdInAndPaidAndEventDateBetweenAndStateAndAvailableTrue(text, text, categories, paid, rangeStartTime, rangeEndTime, State.PUBLISHED, PageRequest.of(page, size));
+            events = eventStorage.getEventsOnlyAvailable(
+                    text,
+                    text,
+                    categories,
+                    paid,
+                    rangeStartTime,
+                    rangeEndTime,
+                    State.PUBLISHED,
+                    PageRequest.of(page, size)
+            );
         } else {
-            events = eventStorage.findByAnnotationContainsIgnoreCaseOrDescriptionContainsIgnoreCaseAndCategory_IdInAndPaidAndEventDateBetweenAndState(text, text, categories, paid, rangeStartTime, rangeEndTime, State.PUBLISHED, PageRequest.of(page, size));
+            events = eventStorage.getEvents(
+                    text,
+                    text,
+                    categories,
+                    paid,
+                    rangeStartTime,
+                    rangeEndTime,
+                    State.PUBLISHED,
+                    PageRequest.of(page, size)
+            );
         }
 
         List<ShortResponseEventDto> shortResponseEventDtoList = new ArrayList<>();

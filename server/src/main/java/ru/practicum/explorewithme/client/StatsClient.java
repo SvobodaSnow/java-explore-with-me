@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Service
 public class StatsClient {
-    private final String URI_STATE = "http://localhost:9090";
+    private final String uriStats = "http://localhost:9090";
     private final RestTemplate rest = new RestTemplate();
 
     public ResponseEntity<Object> sendStates(EndpointHit body) {
@@ -24,14 +24,14 @@ public class StatsClient {
         try {
             if (parameters != null) {
                 exploreWithMeServerResponse = rest.exchange(
-                        URI_STATE + path,
+                        uriStats + path,
                         method,
                         requestEntity,
                         Object.class,
                         parameters
                 );
             } else {
-                exploreWithMeServerResponse = rest.exchange(URI_STATE + path, method, requestEntity, Object.class);
+                exploreWithMeServerResponse = rest.exchange(uriStats + path, method, requestEntity, Object.class);
             }
         } catch (HttpStatusCodeException e) {
             return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsByteArray());
