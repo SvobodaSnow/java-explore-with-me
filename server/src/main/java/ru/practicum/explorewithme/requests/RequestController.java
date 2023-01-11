@@ -17,8 +17,8 @@ public class RequestController {
     @Autowired
     private RequestService requestService;
 
-    @PostMapping("/{eventId}")
-    public RequestDto createNewRequest(@PathVariable Long userId, @PathVariable Long eventId) {
+    @PostMapping
+    public RequestDto createNewRequest(@PathVariable Long userId, @RequestParam Long eventId) {
         log.info("Получен запрос на добавление запроса на присоединения к событию. ID пользователя: " + userId +
                 ". ID события: " + eventId);
         return requestService.createNewRequest(userId, eventId);
