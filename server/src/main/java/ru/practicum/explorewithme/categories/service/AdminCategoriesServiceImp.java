@@ -17,6 +17,13 @@ public class AdminCategoriesServiceImp implements AdminCategoriesService {
 
     @Override
     public Categories createNewCategories(Categories categories) {
+        if (categories.getName() == null || categories.getName().isEmpty()) {
+            throw new ValidationException(
+                    "Не указано имя категории",
+                    "Имя категории пустое",
+                    LocalDateTime.now()
+            );
+        }
         return categoriesStorage.save(categories);
     }
 

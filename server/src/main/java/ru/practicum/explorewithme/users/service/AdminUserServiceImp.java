@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import ru.practicum.explorewithme.exceptions.model.ValidationException;
 import ru.practicum.explorewithme.users.dto.UserDto;
 import ru.practicum.explorewithme.users.dto.UserMapper;
 import ru.practicum.explorewithme.users.model.User;
 import ru.practicum.explorewithme.users.storage.UserStorage;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,20 @@ public class AdminUserServiceImp implements AdminUserService {
 
     @Override
     public UserDto createNewUser(UserDto newUserDto) {
+        if (newUserDto.getName() == null || newUserDto.getName().isEmpty()) {
+            throw new ValidationException(
+                    "Не верно оказаны данные пользователя",
+                    "Не указано имя пользователя",
+                    LocalDateTime.now()
+            );
+        }
+        if (newUserDto.getEmail() == null || newUserDto.getEmail().isEmpty()) {
+            throw new ValidationException(
+                    "Не верно оказаны данные пользователя",
+                    "Не указано имя пользователя",
+                    LocalDateTime.now()
+            );
+        }
         User newUser = UserMapper.toUser(newUserDto);
         return UserMapper.toUserDto(userStorage.save(newUser));
     }

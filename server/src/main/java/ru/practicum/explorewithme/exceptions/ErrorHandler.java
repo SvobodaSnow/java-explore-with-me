@@ -1,6 +1,7 @@
 package ru.practicum.explorewithme.exceptions;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -101,6 +102,20 @@ public class ErrorHandler {
                 "message", e.getMessage(),
                 "reason", e.getReason(),
                 "status", "BAD_REQUEST",
+                "timestamp", LocalDateTime.now().toString()
+        );
+    }
+
+    @ExceptionHandler({DataIntegrityViolationException.class})
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public Map<String, String> handlerDataIntegrityViolationException(
+            final DataIntegrityViolationException e
+    ) {
+        log.error(e.getMessage());
+        return Map.of(
+                "message", e.getMessage(),
+                "reason", "",
+                "status", "CONFLICT",
                 "timestamp", LocalDateTime.now().toString()
         );
     }
