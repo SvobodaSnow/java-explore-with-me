@@ -7,10 +7,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.practicum.explorewithme.exceptions.model.BadRequestException;
-import ru.practicum.explorewithme.exceptions.model.ConflictException;
-import ru.practicum.explorewithme.exceptions.model.NotFoundException;
-import ru.practicum.explorewithme.exceptions.model.PaymentRequiredException;
+import ru.practicum.explorewithme.exceptions.model.*;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -89,6 +86,20 @@ public class ErrorHandler {
         return Map.of(
                 "message", e.getMessage(),
                 "reason", "",
+                "status", "BAD_REQUEST",
+                "timestamp", LocalDateTime.now().toString()
+        );
+    }
+
+    @ExceptionHandler({ValidationException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handlerValidationException(
+            final ValidationException e
+    ) {
+        log.error(e.getMessage());
+        return Map.of(
+                "message", e.getMessage(),
+                "reason", e.getReason(),
                 "status", "BAD_REQUEST",
                 "timestamp", LocalDateTime.now().toString()
         );
