@@ -16,6 +16,7 @@ import ru.practicum.explorewithme.events.storage.EventStorage;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +43,13 @@ public class PublicEventServiceImp implements PublicEventService {
     ) {
         int page = from / size;
         List<Event> events = new ArrayList<>();
-        LocalDateTime rangeStartTime = LocalDateTime.parse(rangeStart);
-        LocalDateTime rangeEndTime = LocalDateTime.parse(rangeEnd);
+        LocalDateTime rangeStartTime;
+        if (rangeStart == null || rangeStart.isEmpty()) {
+            rangeStartTime = LocalDateTime.now();
+        } else {
+            rangeStartTime = LocalDateTime.parse(rangeStart, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        }
+        LocalDateTime rangeEndTime = LocalDateTime.parse(rangeEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
         switch (sort) {
             case "EVENT_DATE":
