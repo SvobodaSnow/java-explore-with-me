@@ -9,7 +9,6 @@ import ru.practicum.explorewithme.events.dto.ShortResponseEventDto;
 import ru.practicum.explorewithme.events.service.PublicEventService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j

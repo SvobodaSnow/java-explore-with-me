@@ -1,7 +1,6 @@
 package ru.practicum.explorewithme.compilations.service;
 
 import ru.practicum.explorewithme.compilations.dto.ResponseCompilationDto;
-import ru.practicum.explorewithme.compilations.model.Compilation;
 
 import java.util.List;
 

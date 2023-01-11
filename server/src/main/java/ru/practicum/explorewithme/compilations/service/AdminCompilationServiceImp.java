@@ -14,7 +14,7 @@ import java.util.List;
 
 @Primary
 @Service
-public class AdminCompilationServiceImp implements AdminCompilationService{
+public class AdminCompilationServiceImp implements AdminCompilationService {
     @Autowired
     private CompilationStorage compilationStorage;
     @Autowired

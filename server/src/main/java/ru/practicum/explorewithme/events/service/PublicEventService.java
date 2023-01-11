@@ -4,7 +4,6 @@ import ru.practicum.explorewithme.events.dto.ResponseEventDto;
 import ru.practicum.explorewithme.events.dto.ShortResponseEventDto;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface PublicEventService {
