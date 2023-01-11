@@ -29,10 +29,10 @@ public class ResponseEventDto {
     private LocalDateTime eventDate;
     private User initiator;
     private Location location;
-    private boolean paid;
-    private int participantLimit;
+    private String paid;
+    private String participantLimit;
     private LocalDateTime publishedOn;
-    private boolean requestModeration;
+    private String requestModeration;
     private State state;
     private String title;
     private Long views;

@@ -55,10 +55,10 @@ public class EventMapper {
                 event.getEventDate(),
                 event.getInitiator(),
                 event.getLocation(),
-                event.isPaid(),
-                event.getParticipantLimit(),
+                String.valueOf(event.isPaid()),
+                String.valueOf(event.getParticipantLimit()),
                 event.getPublishedOn(),
-                event.isRequestModeration(),
+                String.valueOf(event.isRequestModeration()),
                 event.getState(),
                 event.getTitle(),
                 event.getViews()
