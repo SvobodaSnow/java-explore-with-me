@@ -24,20 +24,20 @@ public class AdminCompilationServiceImp implements AdminCompilationService {
 
     @Override
     public Compilation addNewCompilation(CompilationDto compilationDto) {
-        if (compilationDto.getEvents() == null) {
-            throw new ValidationException(
-                    "Отсутствует список событий",
-                    "Список событий пуст",
-                    LocalDateTime.now()
-            );
-        }
-        if (compilationDto.getTitle() == null || compilationDto.getTitle().isEmpty()) {
-            throw new ValidationException(
-                    "Отсутствует заголовок подборки событий",
-                    "Заголовок событий пуст",
-                    LocalDateTime.now()
-            );
-        }
+//        if (compilationDto.getEvents() == null) {
+//            throw new ValidationException(
+//                    "Отсутствует список событий",
+//                    "Список событий пуст",
+//                    LocalDateTime.now()
+//            );
+//        }
+//        if (compilationDto.getTitle() == null || compilationDto.getTitle().isEmpty()) {
+//            throw new ValidationException(
+//                    "Отсутствует заголовок подборки событий",
+//                    "Заголовок событий пуст",
+//                    LocalDateTime.now()
+//            );
+//        }
         List<Event> events = eventStorage.findAllById(compilationDto.getEvents());
         Compilation compilation = CompilationMapper.toCompilation(compilationDto, events);
         return compilationStorage.save(compilation);
