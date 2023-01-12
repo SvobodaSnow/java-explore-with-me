@@ -109,7 +109,7 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler({DataIntegrityViolationException.class})
-    @ResponseStatus(HttpStatus.CONFLICT)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handlerDataIntegrityViolationException(
             final DataIntegrityViolationException e
     ) {
@@ -117,7 +117,7 @@ public class ErrorHandler {
         return Map.of(
                 "message", e.getMessage(),
                 "reason", "",
-                "status", "CONFLICT",
+                "status", "BAD_REQUEST",
                 "timestamp", LocalDateTime.now().toString()
         );
     }
