@@ -31,10 +31,10 @@ public class RequestController {
         return requestService.getAllRequestsForUser(userId);
     }
 
-    @PatchMapping("/{eventId}/cancel")
-    public RequestDto cancelRequest(@PathVariable Long userId, @PathVariable Long eventId) {
+    @PatchMapping("/{reqId}/cancel")
+    public RequestDto cancelRequest(@PathVariable Long userId, @PathVariable Long reqId) {
         log.info("Получен запрос на отмену запроса на участие в событии. ID пользователя " + userId +
-                ". ID события " + eventId);
-        return requestService.cancelRequest(userId, eventId);
+                ". ID запроса на учатие: " + reqId);
+        return requestService.cancelRequest(userId, reqId);
     }
 }

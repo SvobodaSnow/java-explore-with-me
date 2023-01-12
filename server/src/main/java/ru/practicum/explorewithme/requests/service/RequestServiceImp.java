@@ -55,8 +55,8 @@ public class RequestServiceImp implements RequestService {
     }
 
     @Override
-    public RequestDto cancelRequest(Long userId, Long eventId) {
-        Request request = requestStorage.findByRequester_IdAndEventId(userId, eventId);
+    public RequestDto cancelRequest(Long userId, Long reqId) {
+        Request request = requestStorage.findByIdAndRequester_Id(reqId, userId);
         request.setStatus(Status.CANCELED);
         return RequestMapper.toRequestDto(requestStorage.save(request));
     }

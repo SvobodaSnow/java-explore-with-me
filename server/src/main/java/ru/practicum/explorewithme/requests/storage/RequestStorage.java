@@ -6,6 +6,7 @@ import ru.practicum.explorewithme.requests.model.Request;
 import java.util.List;
 
 public interface RequestStorage extends JpaRepository<Request, Long> {
+    Request findByIdAndRequester_Id(Long id, Long id1);
     List<Request> findByEventId(Long eventId);
 
     Request findByRequester_IdAndEventId(Long id, Long eventId);
