@@ -4,9 +4,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ru.practicum.explorewithme.stats.model.EndpointHit;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 public interface EndpointHitStorage extends JpaRepository<EndpointHit, Long> {
+    List<EndpointHit> findByUriInIgnoreCaseAndTimestampBetween(Collection<String> uris, LocalDateTime timestampStart, LocalDateTime timestampEnd);
+    List<EndpointHit> findByUriIgnoreCaseAndTimestampBetween(String uri, LocalDateTime timestampStart, LocalDateTime timestampEnd);
     List<EndpointHit> findByUriAndTimestampBetween(
             String uri,
             LocalDateTime timestampStart,

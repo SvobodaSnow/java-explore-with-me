@@ -8,6 +8,7 @@ import ru.practicum.explorewithme.stats.model.ViewStats;
 import ru.practicum.explorewithme.stats.storage.EndpointHitStorage;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -25,41 +26,35 @@ public class StatsServiceImp implements StatsService {
     }
 
     @Override
-    public List<ViewStats> getStats(String start, String end, List<String> uris, boolean unique) {
-        LocalDateTime startTime = LocalDateTime.parse(start);
-        LocalDateTime endTime = LocalDateTime.parse(end);
-        List<ViewStats> viewStatsList = new ArrayList<>();
-        for (String s : uris) {
-            List<EndpointHit> endpointHit = endpointHitStorage.findByUriAndTimestampBetween(
-                    s,
-                    startTime,
-                    endTime
-            );
-            if (endpointHit.size() > 0) {
-                Collection<EndpointHit> endpointHitCollection;
-                if (unique) {
-                    endpointHitCollection = new HashSet<>(endpointHit);
-                } else {
-                    endpointHitCollection = endpointHit;
-                }
-                viewStatsList.add(
-                        new ViewStats(
-                                endpointHit.get(0).getApp(),
-                                s,
-                                endpointHitCollection.size()
-                        )
-                );
+    public ViewStats getStats(String start, String end, List<String> uris, boolean unique) {
+        LocalDateTime startTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        LocalDateTime endTime = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        List<EndpointHit> endpointHit = endpointHitStorage.findByUriInIgnoreCaseAndTimestampBetween(
+                uris,
+                startTime,
+                endTime
+        );
+        ViewStats viewStats;
+        if (endpointHit.size() > 0) {
+            Collection<EndpointHit> endpointHitCollection;
+            if (unique) {
+                endpointHitCollection = new HashSet<>(endpointHit);
             } else {
-                viewStatsList.add(
-                        new ViewStats(
-                                "",
-                                s,
-                                0
-                        )
-                );
+                endpointHitCollection = endpointHit;
             }
+            viewStats = new ViewStats(
+                    endpointHit.get(0).getApp(),
+                    uris.get(0),
+                    endpointHitCollection.size()
+            );
+        } else {
+            viewStats = new ViewStats(
+                    "",
+                    uris.get(0),
+                    0
+            );
         }
 
-        return viewStatsList;
+        return viewStats;
     }
 }

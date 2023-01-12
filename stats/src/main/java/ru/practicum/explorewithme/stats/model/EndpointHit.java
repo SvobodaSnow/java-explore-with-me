@@ -1,5 +1,6 @@
 package ru.practicum.explorewithme.stats.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class EndpointHit {
     @Column(nullable = false)
     private String ip;
     @Column(name = "created_on", nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timestamp;
 
     @Override

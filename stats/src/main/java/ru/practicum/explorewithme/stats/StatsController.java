@@ -26,13 +26,14 @@ public class StatsController {
     }
 
     @GetMapping("/stats")
-    public List<ViewStats> getStats(
+    public ViewStats getStats(
             @RequestParam String start,
             @RequestParam String end,
             @RequestParam List<String> uris,
             @RequestParam boolean unique
     ) {
-        log.info("Получен запрос на формитрвоание статистики");
+        log.info("Получен запрос на формитрвоание статистики. Начало: " + start + ". Конец: " + end +
+                ". URIS: " + uris + ". Уникальность: " + unique);
         return statsService.getStats(start, end, uris, unique);
     }
 }
