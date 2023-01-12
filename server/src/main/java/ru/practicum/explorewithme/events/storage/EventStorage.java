@@ -1,5 +1,6 @@
 package ru.practicum.explorewithme.events.storage;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -163,4 +164,12 @@ public interface EventStorage extends JpaRepository<Event, Long> {
     );
 
     List<Event> findByInitiatorId(Long initiatorId);
+
+    List<Event> findByInitiator_IdInAndCategory_IdInAndEventDateBetween(
+            List<Long> users,
+            List<Long> categories,
+            LocalDateTime rangeStartTime,
+            LocalDateTime rangeEndTime,
+            PageRequest of
+    );
 }

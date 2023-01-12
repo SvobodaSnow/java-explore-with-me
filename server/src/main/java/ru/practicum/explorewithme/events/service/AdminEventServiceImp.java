@@ -47,6 +47,14 @@ public class AdminEventServiceImp implements AdminEventService {
         List<Event> events;
         if (users == null && states == null && categories == null) {
             events = eventStorage.findAll();
+        } else if (states == null) {
+            events = eventStorage.findByInitiator_IdInAndCategory_IdInAndEventDateBetween(
+                    users,
+                    categories,
+                    rangeStartTime,
+                    rangeEndTime,
+                    PageRequest.of(page, size)
+            );
         } else {
             events = eventStorage.findByInitiator_IdInAndStateInAndCategory_IdInAndEventDateBetween(
                     users,
@@ -62,6 +70,7 @@ public class AdminEventServiceImp implements AdminEventService {
         for (Event event : events) {
             responseEventDtoList.add(EventMapper.toResponseEventDto(event));
         }
+
         return responseEventDtoList;
     }
 
