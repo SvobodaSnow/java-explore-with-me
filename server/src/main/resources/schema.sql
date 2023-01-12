@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS compilation_event;
 
 CREATE TABLE IF NOT EXISTS events (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    annotation VARCHAR(255) NOT NULL,
+    annotation VARCHAR(1024) NOT NULL,
     category_id BIGINT NOT NULL,
     confirmed_requests BIGINT NOT NULL,
     created_on TIMESTAMP NOT NULL,
