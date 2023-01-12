@@ -9,6 +9,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ViewStats {
     private String app;
-    private String upi;
+    private String uri;
     private int hits;
 }
