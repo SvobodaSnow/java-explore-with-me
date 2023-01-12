@@ -23,16 +23,32 @@ public class AdminUserServiceImp implements AdminUserService {
 
     @Override
     public UserDto createNewUser(UserDto newUserDto) {
-        try {
-            User newUser = UserMapper.toUser(newUserDto);
-            return UserMapper.toUserDto(userStorage.save(newUser));
-        } catch (DataIntegrityViolationException e) {
+//        try {
+//            User newUser = UserMapper.toUser(newUserDto);
+//            return UserMapper.toUserDto(userStorage.save(newUser));
+//        } catch (DataIntegrityViolationException e) {
+//            throw new ValidationException(
+//                    "Не верно оказаны данные пользователя",
+//                    "Не указаны данные пользователя",
+//                    LocalDateTime.now()
+//            );
+//        }
+        if (newUserDto.getName() == null || newUserDto.getName().isEmpty()) {
             throw new ValidationException(
                     "Не верно оказаны данные пользователя",
-                    "Не указаны данные пользователя",
+                    "Не указано имя пользователя",
                     LocalDateTime.now()
             );
         }
+        if (newUserDto.getEmail() == null || newUserDto.getEmail().isEmpty()) {
+            throw new ValidationException(
+                    "Не верно оказаны данные пользователя",
+                    "Не указано имя пользователя",
+                    LocalDateTime.now()
+            );
+        }
+        User newUser = UserMapper.toUser(newUserDto);
+        return UserMapper.toUserDto(userStorage.save(newUser));
     }
 
     @Override
