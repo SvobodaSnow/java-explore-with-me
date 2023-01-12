@@ -2,6 +2,7 @@ package ru.practicum.explorewithme.users.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.practicum.explorewithme.exceptions.model.ValidationException;
@@ -22,22 +23,16 @@ public class AdminUserServiceImp implements AdminUserService {
 
     @Override
     public UserDto createNewUser(UserDto newUserDto) {
-        if (newUserDto.getName() == null || newUserDto.getName().isEmpty()) {
+        try {
+            User newUser = UserMapper.toUser(newUserDto);
+            return UserMapper.toUserDto(userStorage.save(newUser));
+        } catch (DataIntegrityViolationException e) {
             throw new ValidationException(
                     "Не верно оказаны данные пользователя",
-                    "Не указано имя пользователя",
+                    "Не указаны данные пользователя",
                     LocalDateTime.now()
             );
         }
-        if (newUserDto.getEmail() == null || newUserDto.getEmail().isEmpty()) {
-            throw new ValidationException(
-                    "Не верно оказаны данные пользователя",
-                    "Не указано имя пользователя",
-                    LocalDateTime.now()
-            );
-        }
-        User newUser = UserMapper.toUser(newUserDto);
-        return UserMapper.toUserDto(userStorage.save(newUser));
     }
 
     @Override
