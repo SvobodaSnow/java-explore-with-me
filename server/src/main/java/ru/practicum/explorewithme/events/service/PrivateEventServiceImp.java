@@ -2,6 +2,7 @@ package ru.practicum.explorewithme.events.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import ru.practicum.explorewithme.categories.model.Categories;
 import ru.practicum.explorewithme.categories.storage.CategoriesStorage;
@@ -32,18 +33,26 @@ public class PrivateEventServiceImp implements PrivateEventService {
 
     @Override
     public ResponseEventDto createNewEvent(NewEventDto newEventDto, Long userId) {
-        if (newEventDto.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
+        try {
+            if (newEventDto.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
+                throw new ValidationException(
+                        "Событие будет раньше чем через 2 часа",
+                        "Не верно указано время события",
+                        LocalDateTime.now()
+                );
+            }
+            User initiator = userStorage.getById(userId);
+            Categories categories = categoriesStorage.getById(newEventDto.getCategory());
+            Event event = EventMapper.toNewEvent(newEventDto, initiator, categories);
+            event.setLocation(locationStorage.save(event.getLocation()));
+            return EventMapper.toResponseEventDto(eventStorage.save(event));
+        } catch (DataIntegrityViolationException e) {
             throw new ValidationException(
-                    "Событие будет раньше чем через 2 часа",
-                    "Не верно указано время события",
+                    "Не верно составлен запрос",
+                    "Не указаны обязательные параметры для создания события",
                     LocalDateTime.now()
             );
         }
-        User initiator = userStorage.getById(userId);
-        Categories categories = categoriesStorage.getById(newEventDto.getCategory());
-        Event event = EventMapper.toNewEvent(newEventDto, initiator, categories);
-        event.setLocation(locationStorage.save(event.getLocation()));
-        return EventMapper.toResponseEventDto(eventStorage.save(event));
     }
 
     @Override
