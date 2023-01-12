@@ -8,5 +8,5 @@ import java.util.Collection;
 import java.util.List;
 
 public interface EndpointHitStorage extends JpaRepository<EndpointHit, Long> {
-    List<EndpointHit> findByUriInIgnoreCaseAndTimestampBetween(Collection<String> uris, LocalDateTime timestampStart, LocalDateTime timestampEnd);
+    List<EndpointHit> findByUriAndTimestampBetween(String s, LocalDateTime startTime, LocalDateTime endTime);
 }

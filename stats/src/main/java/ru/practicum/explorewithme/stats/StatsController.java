@@ -26,7 +26,7 @@ public class StatsController {
     }
 
     @GetMapping("/stats")
-    public ViewStats getStats(
+    public List<ViewStats> getStats(
             @RequestParam String start,
             @RequestParam String end,
             @RequestParam List<String> uris,
