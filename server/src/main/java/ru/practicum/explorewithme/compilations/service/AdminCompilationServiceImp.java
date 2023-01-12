@@ -9,9 +9,7 @@ import ru.practicum.explorewithme.compilations.model.Compilation;
 import ru.practicum.explorewithme.compilations.storage.CompilationStorage;
 import ru.practicum.explorewithme.events.model.Event;
 import ru.practicum.explorewithme.events.storage.EventStorage;
-import ru.practicum.explorewithme.exceptions.model.ValidationException;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Primary
