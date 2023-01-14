@@ -1,0 +1,28 @@
+2023-01-14 13:32:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Значение слишком длинное для поля "TITLE CHARACTER VARYING(32)": "'Ratione mollitia iste unde harum at dolorem facere explicabo.' (61)"
+Value too long for column "TITLE CHARACTER VARYING(32)": "'Ratione mollitia iste unde harum at dolorem facere explicabo.' (61)"; SQL statement:
+insert into public.compilations (pinned, title) values (?, ?) [22001-214]
+2023-01-14 13:32:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Значение слишком длинное для поля "TITLE CHARACTER VARYING(32)": "'Nisi sed consectetur qui est velit.' (35)"
+Value too long for column "TITLE CHARACTER VARYING(32)": "'Nisi sed consectetur qui est velit.' (35)"; SQL statement:
+insert into public.compilations (pinned, title) values (?, ?) [22001-214]
+2023-01-14 13:32:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Значение слишком длинное для поля "TITLE CHARACTER VARYING(32)": "'Fugit maxime amet qui aspernatur.' (33)"
+Value too long for column "TITLE CHARACTER VARYING(32)": "'Fugit maxime amet qui aspernatur.' (33)"; SQL statement:
+insert into public.compilations (pinned, title) values (?, ?) [22001-214]
+2023-01-14 13:32:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Значение слишком длинное для поля "TITLE CHARACTER VARYING(32)": "'Magnam ex minus et iure est provident sed accusantium.' (54)"
+Value too long for column "TITLE CHARACTER VARYING(32)": "'Magnam ex minus et iure est provident sed accusantium.' (54)"; SQL statement:
+insert into public.compilations (pinned, title) values (?, ?) [22001-214]
+2023-01-14 13:33:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Значение слишком длинное для поля "TITLE CHARACTER VARYING(32)": "'Aspernatur molestiae non laudantium laborum molestiae incidunt officiis.' (72)"
+Value too long for column "TITLE CHARACTER VARYING(32)": "'Aspernatur molestiae non laudantium laborum molestiae incidunt officiis.' (72)"; SQL statement:
+insert into public.compilations (pinned, title) values (?, ?) [22001-214]
+2023-01-14 13:34:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Значение слишком длинное для поля "TITLE CHARACTER VARYING(32)": "'Qui ullam ut impedit at culpa culpa perspiciatis quod.' (54)"
+Value too long for column "TITLE CHARACTER VARYING(32)": "'Qui ullam ut impedit at culpa culpa perspiciatis quod.' (54)"; SQL statement:
+insert into public.compilations (pinned, title) values (?, ?) [22001-214]
+2023-01-14 13:34:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Значение слишком длинное для поля "TITLE CHARACTER VARYING(32)": "'Et incidunt sint ut quae ducimus hic.' (37)"
+Value too long for column "TITLE CHARACTER VARYING(32)": "'Et incidunt sint ut quae ducimus hic.' (37)"; SQL statement:
+insert into public.compilations (pinned, title) values (?, ?) [22001-214]
