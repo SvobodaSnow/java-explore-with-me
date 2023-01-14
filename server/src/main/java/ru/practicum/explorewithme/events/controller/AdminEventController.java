@@ -9,7 +9,12 @@ import ru.practicum.explorewithme.events.dto.ResponseEventDto;
 import ru.practicum.explorewithme.events.model.State;
 import ru.practicum.explorewithme.events.service.AdminEventService;
 
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+import java.text.MessageFormat;
 import java.util.List;
+
+import static ru.practicum.explorewithme.client.model.GlobalVariables.*;
 
 @Slf4j
 @Validated
@@ -24,32 +29,46 @@ public class AdminEventController {
             @RequestParam(required = false) List<Long> users,
             @RequestParam(required = false) List<State> states,
             @RequestParam(required = false) List<Long> categories,
-            @RequestParam(defaultValue = "0001-01-01 00:00:00") String rangeStart,
-            @RequestParam(defaultValue = "9999-12-31 00:00:00") String rangeEnd,
-            @RequestParam(defaultValue = "0") int from,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = DEFAULT_TIME_START) String rangeStart,
+            @RequestParam(defaultValue = DEFAULT_TIME_END) String rangeEnd,
+            @PositiveOrZero @RequestParam(defaultValue = "0") int from,
+            @Positive @RequestParam(defaultValue = "10") int size
     ) {
-        log.info("Получен запрос на формирование списка событий для пользователей с ID: " + users +
-                ". Состояния для поиска: " + states + ". Список категорий: " + categories +
-                ". Диапазон с " + rangeStart + " до " + rangeEnd);
+
+        log.info(
+                MessageFormat.format(
+                        "Получен запрос на формирование списка событий для пользователей с ID: {0}. " +
+                                "Состояния для поиска: {1}. Список категорий: {2}. Диапазон с {3} до {4}",
+                        users,
+                        states,
+                        categories,
+                        rangeStart,
+                        rangeEnd
+                )
+        );
         return adminEventService.getEvents(users, states, categories, rangeStart, rangeEnd, from, size);
     }
 
     @PutMapping("/{eventId}")
-    public ResponseEventDto updateEvent(@RequestBody NewEventDto newEventDto, @PathVariable Long eventId) {
-        log.info("Получен азпрос на обновление события с ID " + eventId + " от администратора");
+    public ResponseEventDto updateEvent(@RequestBody NewEventDto newEventDto, @Positive @PathVariable Long eventId) {
+        log.info(
+                MessageFormat.format(
+                        "Получен запрос на обновление события с ID {0} от администратора",
+                        eventId
+                )
+        );
         return adminEventService.updateEvent(newEventDto, eventId);
     }
 
     @PatchMapping("/{eventId}/publish")
-    public ResponseEventDto publishEvent(@PathVariable Long eventId) {
-        log.info("Получен запрос на публикацию события с ID " + eventId);
+    public ResponseEventDto publishEvent(@Positive @PathVariable Long eventId) {
+        log.info(MessageFormat.format("Получен запрос на публикацию события с ID {0}", eventId));
         return adminEventService.publishEvent(eventId);
     }
 
     @PatchMapping("/{eventId}/reject")
-    public ResponseEventDto rejectEvent(@PathVariable Long eventId) {
-        log.info("Получен запрос на отклонение события с ID " + eventId);
+    public ResponseEventDto rejectEvent(@Positive @PathVariable Long eventId) {
+        log.info(MessageFormat.format("Получен запрос на отклонение события с ID {0}", eventId));
         return adminEventService.rejectEvent(eventId);
     }
 }

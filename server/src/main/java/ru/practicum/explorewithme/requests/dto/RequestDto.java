@@ -9,6 +9,8 @@ import ru.practicum.explorewithme.requests.model.Status;
 
 import java.time.LocalDateTime;
 
+import static ru.practicum.explorewithme.client.model.GlobalVariables.PATTERN_DATE_TIME;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,7 +19,7 @@ public class RequestDto {
     private Long id;
     private Long event;
     private Long requester;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = PATTERN_DATE_TIME)
     private LocalDateTime created;
     private Status status;
 }

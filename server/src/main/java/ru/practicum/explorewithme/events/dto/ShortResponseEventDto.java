@@ -10,6 +10,8 @@ import ru.practicum.explorewithme.users.model.User;
 
 import java.time.LocalDateTime;
 
+import static ru.practicum.explorewithme.client.model.GlobalVariables.PATTERN_DATE_TIME;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,7 +21,7 @@ public class ShortResponseEventDto {
     private String annotation;
     private Categories category;
     private int confirmedRequests;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = PATTERN_DATE_TIME)
     private LocalDateTime eventDate;
     private User initiator;
     private boolean paid;

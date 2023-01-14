@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.explorewithme.requests.dto.RequestDto;
 import ru.practicum.explorewithme.requests.service.RequestService;
 
+import javax.validation.constraints.Positive;
+import java.text.MessageFormat;
 import java.util.List;
 
 @Slf4j
@@ -18,23 +20,40 @@ public class RequestController {
     private RequestService requestService;
 
     @PostMapping
-    public RequestDto createNewRequest(@PathVariable Long userId, @RequestParam Long eventId) {
-        log.info("Получен запрос на добавление запроса на присоединения к событию. ID пользователя: " + userId +
-                ". ID события: " + eventId);
+    public RequestDto createNewRequest(@Positive @PathVariable Long userId, @Positive @RequestParam Long eventId) {
+        log.info(
+                MessageFormat.format(
+                        "Получен запрос на добавление запроса на присоединения к событию. " +
+                                "ID пользователя: {0}. ID события: {1}",
+                        userId,
+                        eventId
+                )
+        );
         return requestService.createNewRequest(userId, eventId);
     }
 
     @GetMapping
-    public List<RequestDto> getAllRequestsForUser(@PathVariable Long userId) {
-        log.info("Получен запрос на формирование списка запросов на участие в событиях " +
-                "для пользователя с ID: " + userId);
+    public List<RequestDto> getAllRequestsForUser(@Positive @PathVariable Long userId) {
+        log.info(
+                MessageFormat.format(
+                        "Получен запрос на формирование списка запросов на участие в событиях " +
+                                "для пользователя с ID: {0}",
+                        userId
+                )
+        );
         return requestService.getAllRequestsForUser(userId);
     }
 
     @PatchMapping("/{reqId}/cancel")
-    public RequestDto cancelRequest(@PathVariable Long userId, @PathVariable Long reqId) {
-        log.info("Получен запрос на отмену запроса на участие в событии. ID пользователя " + userId +
-                ". ID запроса на учатие: " + reqId);
+    public RequestDto cancelRequest(@Positive @PathVariable Long userId, @Positive @PathVariable Long reqId) {
+        log.info(
+                MessageFormat.format(
+                        "Получен запрос на отмену запроса на участие в событии. ID пользователя {0}. " +
+                                "ID запроса на учатие: {1}",
+                        userId,
+                        reqId
+                )
+        );
         return requestService.cancelRequest(userId, reqId);
     }
 }

@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.explorewithme.categories.model.Categories;
 import ru.practicum.explorewithme.categories.service.AdminCategoriesService;
 
+import javax.validation.constraints.Positive;
+import java.text.MessageFormat;
+
 @Slf4j
 @Validated
 @RestController
@@ -17,20 +20,30 @@ public class AdminCategoriesController {
 
     @PostMapping
     public Categories createNewCategories(@RequestBody Categories categories) {
-        log.info("Получен запрос на создание новой категории. Название категории: " + categories.getName());
+        log.info(
+                MessageFormat.format(
+                        "Получен запрос на создание новой категории. Название категории: {0}",
+                        categories.getName()
+                )
+        );
         return adminCategoriesService.createNewCategories(categories);
     }
 
     @PatchMapping
     public Categories updateCategories(@RequestBody Categories categories) {
-        log.info("Получен запрос на обновление категории. ID категории: " + categories.getId() +
-                ". Название категории " + categories.getName());
+        log.info(
+                MessageFormat.format(
+                        "Получен запрос на обновление категории. ID категории: {0}. Название категории {1}",
+                        categories.getId(),
+                        categories.getName()
+                )
+        );
         return adminCategoriesService.updateCategories(categories);
     }
 
     @DeleteMapping("/{catId}")
-    public boolean deleteCategories(@PathVariable Long catId) {
-        log.info("Получен запрос на удаление категории. ID категории: " + catId);
+    public boolean deleteCategories(@Positive @PathVariable Long catId) {
+        log.info(MessageFormat.format("Получен запрос на удаление категории. ID категории: {0}", catId));
         adminCategoriesService.deleteCategories(catId);
         return true;
     }

@@ -9,6 +9,8 @@ import ru.practicum.explorewithme.events.model.Location;
 
 import java.time.LocalDateTime;
 
+import static ru.practicum.explorewithme.client.model.GlobalVariables.*;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,7 +19,7 @@ public class NewEventDto {
     private String annotation;
     private Long category;
     private String description;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = PATTERN_DATE_TIME)
     private LocalDateTime eventDate;
     private Location location;
     private boolean paid;

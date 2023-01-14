@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+import static ru.practicum.explorewithme.client.model.GlobalVariables.PATTERN_DATE_TIME;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,7 +19,7 @@ public class UpdateEventDto {
     private String annotation;
     private Long category;
     private String description;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = PATTERN_DATE_TIME)
     private LocalDateTime eventDate;
     private boolean paid;
     private int participantLimit;

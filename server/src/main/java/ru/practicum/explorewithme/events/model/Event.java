@@ -38,7 +38,10 @@ public class Event {
     private LocalDateTime publishedOn;
     private boolean requestModeration;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private State state;
+    @Column(nullable = false)
     private String title;
+    @Column(nullable = false)
     private Long views;
 }

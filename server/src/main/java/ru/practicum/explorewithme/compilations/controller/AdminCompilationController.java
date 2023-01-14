@@ -8,6 +8,9 @@ import ru.practicum.explorewithme.compilations.dto.CompilationDto;
 import ru.practicum.explorewithme.compilations.model.Compilation;
 import ru.practicum.explorewithme.compilations.service.AdminCompilationService;
 
+import javax.validation.constraints.Positive;
+import java.text.MessageFormat;
+
 @Slf4j
 @Validated
 @RestController
@@ -23,36 +26,61 @@ public class AdminCompilationController {
     }
 
     @DeleteMapping("/{compId}")
-    public boolean deleteCompilation(@PathVariable Long compId) {
-        log.info("Получен запрос на удаление подборки событий с ID " + compId);
+    public boolean deleteCompilation(@Positive @PathVariable Long compId) {
+        log.info(MessageFormat.format("Получен запрос на удаление подборки событий с ID {0}", compId));
         adminCompilationService.deleteCompilation(compId);
         return true;
     }
 
     @DeleteMapping("/{compId}/events/{eventId}")
-    public boolean deleteEventFromCompilation(@PathVariable Long compId, @PathVariable Long eventId) {
-        log.info("Получен запрос на удаление события из подборки. ID подборки " + compId + ". ID события " + eventId);
+    public boolean deleteEventFromCompilation(
+            @Positive @PathVariable Long compId,
+            @Positive @PathVariable Long eventId
+    ) {
+        log.info(
+                MessageFormat.format(
+                        "Получен запрос на удаление события из подборки. ID подборки {0}. ID события {1}",
+                        compId,
+                        eventId
+                )
+        );
         adminCompilationService.deleteEventFromCompilation(compId, eventId);
         return true;
     }
 
     @PatchMapping("/{compId}/events/{eventId}")
-    public boolean addEventFromCompilation(@PathVariable Long compId, @PathVariable Long eventId) {
-        log.info("Получен запрос на добавления события в подборку. ID подборки " + compId + ". ID события " + eventId);
+    public boolean addEventFromCompilation(@Positive @PathVariable Long compId, @Positive @PathVariable Long eventId) {
+        log.info(
+                MessageFormat.format(
+                        "Получен запрос на добавления события в подборку. ID подборки {0}. ID события {1}",
+                        compId,
+                        eventId
+                )
+        );
         adminCompilationService.addEventFromCompilation(compId, eventId);
         return true;
     }
 
     @DeleteMapping("/{compId}/pin")
-    public boolean unpinCompilation(@PathVariable Long compId) {
-        log.info("Получен запрос на открепление подборки с главного экрана. ID подборки " + compId);
+    public boolean unpinCompilation(@Positive @PathVariable Long compId) {
+        log.info(
+                MessageFormat.format(
+                        "Получен запрос на открепление подборки с главного экрана. ID подборки {0}",
+                        compId
+                )
+        );
         adminCompilationService.unpinCompilation(compId);
         return true;
     }
 
     @PatchMapping("/{compId}/pin")
-    public boolean pinCompilation(@PathVariable Long compId) {
-        log.info("Получен запрос на закрепление подборки на главном экране. ID подборки " + compId);
+    public boolean pinCompilation(@Positive @PathVariable Long compId) {
+        log.info(
+                MessageFormat.format(
+                        "Получен запрос на закрепление подборки на главном экране. ID подборки {0}",
+                        compId
+                )
+        );
         adminCompilationService.pinCompilation(compId);
         return true;
     }

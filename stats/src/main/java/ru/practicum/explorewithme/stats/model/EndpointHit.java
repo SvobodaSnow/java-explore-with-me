@@ -5,10 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
+
+import static ru.practicum.explorewithme.stats.model.GlobalVariables.PATTERN_DATE_TIME;
 
 @Entity
 @Getter
@@ -27,13 +30,13 @@ public class EndpointHit {
     @Column(nullable = false)
     private String ip;
     @Column(name = "created_on", nullable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = PATTERN_DATE_TIME)
     private LocalDateTime timestamp;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         EndpointHit that = (EndpointHit) o;
         return Objects.equals(app, that.app) &&
                 Objects.equals(uri, that.uri) &&

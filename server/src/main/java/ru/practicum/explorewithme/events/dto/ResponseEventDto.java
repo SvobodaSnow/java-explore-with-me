@@ -13,6 +13,8 @@ import ru.practicum.explorewithme.users.model.User;
 
 import java.time.LocalDateTime;
 
+import static ru.practicum.explorewithme.client.model.GlobalVariables.PATTERN_DATE_TIME;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,7 +27,7 @@ public class ResponseEventDto {
     private int confirmedRequests;
     private LocalDateTime createdOn;
     private String description;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = PATTERN_DATE_TIME)
     private LocalDateTime eventDate;
     private User initiator;
     private Location location;

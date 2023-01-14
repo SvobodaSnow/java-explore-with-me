@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.explorewithme.categories.model.Categories;
 import ru.practicum.explorewithme.categories.service.PublicCategoriesService;
 
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+import java.text.MessageFormat;
 import java.util.List;
 
 @Slf4j
@@ -19,16 +22,16 @@ public class PublicCategoriesController {
 
     @GetMapping
     public List<Categories> getCategories(
-            @RequestParam(defaultValue = "0") int from,
-            @RequestParam(defaultValue = "10") int size
+            @PositiveOrZero @RequestParam(defaultValue = "0") int from,
+            @Positive @RequestParam(defaultValue = "10") int size
     ) {
         log.info("Получен запрос на формирование списка категорий");
         return publicCategoriesService.getCategories(from, size);
     }
 
     @GetMapping("/{catId}")
-    public Categories getCategoryById(@PathVariable Long catId) {
-        log.info("Получен запрос на отправку категории с ID " + catId);
+    public Categories getCategoryById(@Positive @PathVariable Long catId) {
+        log.info(MessageFormat.format("Получен запрос на отправку категории с ID: {0}", catId));
         return publicCategoriesService.getCategoryById(catId);
     }
 }
