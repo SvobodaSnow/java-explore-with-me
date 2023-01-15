@@ -1,0 +1,63 @@
+DROP TABLE If EXISTS events;
+DROP TABLE IF EXISTS locations;
+DROP TABLE If EXISTS users;
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS requests;
+DROP TABLE If EXISTS compilations;
+DROP TABLE IF EXISTS compilation_event;
+
+CREATE TABLE IF NOT EXISTS events (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    annotation VARCHAR(1024) NOT NULL,
+    category_id BIGINT NOT NULL,
+    confirmed_requests BIGINT NOT NULL,
+    created_on TIMESTAMP NOT NULL,
+    description VARCHAR(1024) NOT NULL,
+    event_date TIMESTAMP NOT NULL,
+    initiator_id BIGINT NOT NULL,
+    location_id BIGINT NOT NULL,
+    paid BOOLEAN NOT NULL,
+    participant_limit BIGINT NOT NULL,
+    available BOOLEAN,
+    published_on BOOLEAN,
+    request_moderation BOOLEAN NOT NULL,
+    state VARCHAR(32) NOT NULL,
+    title VARCHAR(128) NOT NULL,
+    views BIGINT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS locations (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    lat BIGINT NOT NULL,
+    lon BIGINT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS users (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR(64) NOT NULL,
+    email VARCHAR(64) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS categories (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR(32) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS requests (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    event_id BIGINT NOT NULL,
+    request_participant_id BIGINT NOT NULL,
+    status VARCHAR(32) NOT NULL,
+    created TIMESTAMP NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS compilations (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    pinned BOOLEAN NOT NULL,
+    title VARCHAR(128) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS compilation_event (
+    compilation_id BIGINT NOT NULL,
+    event_id BIGINT NOT NULL
+);
