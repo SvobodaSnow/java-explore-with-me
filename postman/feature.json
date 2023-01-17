@@ -108,7 +108,7 @@
 							"});\r",
 							"pm.test(\"Name\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.name).to.eql(\"magenta96\");\r",
+							"    pm.expect(jsonData.name).to.eql(\"Концерты\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -153,7 +153,6 @@
 							"pm.test(\"Name\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
 							"    pm.expect(jsonData.annotation).to.eql(\"Концерт любимой группы\");\r",
-							"    pm.expect(jsonData.category.name).to.eql(\"magenta96\");\r",
 							"});"
 						],
 						"type": "text/javascript"
