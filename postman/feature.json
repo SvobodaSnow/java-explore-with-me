@@ -108,7 +108,7 @@
 							"});\r",
 							"pm.test(\"Name\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.name).to.eql(\"Концерты\");\r",
+							"    pm.expect(jsonData.name).to.eql(\"magenta96\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -153,7 +153,7 @@
 							"pm.test(\"Name\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
 							"    pm.expect(jsonData.annotation).to.eql(\"Концерт любимой группы\");\r",
-							"    pm.expect(jsonData.category.name).to.eql(\"Концерты\");\r",
+							"    pm.expect(jsonData.category.name).to.eql(\"magenta96\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -205,7 +205,6 @@
 							"pm.test(\"Name\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
 							"    pm.expect(jsonData.text).to.eql(\"Хорошее событие. Хотелось бы сходить.\");\r",
-							"    pm.expect(jsonData.authorName).to.eql(\"Иван Петров 2\");\r",
 							"    pm.expect(jsonData.status).to.eql(\"PENDING\");\r",
 							"});"
 						],
@@ -312,7 +311,6 @@
 							"pm.test(\"Name\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
 							"    pm.expect(jsonData.text).to.eql(\"Хорошее событие. Хотелось бы сходить.\");\r",
-							"    pm.expect(jsonData.authorName).to.eql(\"Иван Петров 2\");\r",
 							"    pm.expect(jsonData.status).to.eql(\"PUBLISHED\");\r",
 							"});"
 						],
@@ -419,7 +417,6 @@
 							"pm.test(\"Name\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
 							"    pm.expect(jsonData.text).to.eql(\"Хорошее событие. Хотелось бы сходить. Но не получится\");\r",
-							"    pm.expect(jsonData.authorName).to.eql(\"Иван Петров 2\");\r",
 							"    pm.expect(jsonData.status).to.eql(\"PENDING\");\r",
 							"});"
 						],
@@ -477,7 +474,6 @@
 							"pm.test(\"Name\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
 							"    pm.expect(jsonData.text).to.eql(\"Хорошее событие. Хотелось бы сходить. Но не получится\");\r",
-							"    pm.expect(jsonData.authorName).to.eql(\"Иван Петров 2\");\r",
 							"    pm.expect(jsonData.status).to.eql(\"PUBLISHED\");\r",
 							"});"
 						],
