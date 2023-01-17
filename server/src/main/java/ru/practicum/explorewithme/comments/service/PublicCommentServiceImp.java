@@ -6,12 +6,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.practicum.explorewithme.comments.dto.CommentDto;
 import ru.practicum.explorewithme.comments.dto.CommentMapper;
-import ru.practicum.explorewithme.comments.model.Comment;
 import ru.practicum.explorewithme.comments.model.Status;
 import ru.practicum.explorewithme.comments.storage.CommentStorage;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Primary
@@ -22,15 +21,9 @@ public class PublicCommentServiceImp implements PublicCommentService {
     @Override
     public List<CommentDto> getAllCommentByEventId(Long eventId, int from, int size) {
         int page = from / size;
-        List<Comment> comments = commentStorage.findByEventIdAndStatus(
-                eventId,
-                Status.PUBLISHED,
-                PageRequest.of(page, size)
-        );
-        List<CommentDto> commentDtoList = new ArrayList<>();
-        for (Comment comment : comments) {
-            commentDtoList.add(CommentMapper.toCommentDto(comment));
-        }
-        return commentDtoList;
+        return commentStorage.findByEventIdAndStatus(eventId, Status.PUBLISHED, PageRequest.of(page, size))
+                .stream()
+                .map(CommentMapper::toCommentDto)
+                .collect(Collectors.toList());
     }
 }
