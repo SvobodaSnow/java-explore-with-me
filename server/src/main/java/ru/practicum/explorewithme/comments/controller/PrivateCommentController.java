@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.explorewithme.comments.dto.CommentDto;
 import ru.practicum.explorewithme.comments.dto.NewCommentDto;
+import ru.practicum.explorewithme.comments.dto.UpdateCommentDto;
 import ru.practicum.explorewithme.comments.service.PrivateCommentService;
 
 import javax.validation.constraints.Positive;
@@ -27,11 +28,29 @@ public class PrivateCommentController {
     ) {
         log.info(
                 MessageFormat.format(
-                        "Получен запрос на добавление нового коментария. ID пользователя: {0}. ID события: {1}",
+                        "Получен запрос на добавление нового комментария. ID пользователя: {0}. ID события: {1}",
                         userId,
                         eventId
                 )
         );
         return privateCommentService.addNewComment(commentDto, userId, eventId);
+    }
+
+    @PatchMapping
+    public CommentDto updateComment(
+            @RequestBody UpdateCommentDto updateCommentDto,
+            @Positive @PathVariable Long userId,
+            @Positive @PathVariable Long eventId
+    ) {
+        log.info(
+                MessageFormat.format(
+                        "Получен запрос на обновление комментария. ID пользователя: {0}. " +
+                                "ID события: {1}. ID комментария {2}",
+                        userId,
+                        eventId,
+                        updateCommentDto.getId()
+                )
+        );
+        return privateCommentService.updateComment(updateCommentDto, userId, eventId);
     }
 }

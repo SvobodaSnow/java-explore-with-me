@@ -26,4 +26,20 @@ public class CommentMapper {
                 comment.getCreated()
         );
     }
+
+    public static Comment toComment(
+            UpdateCommentDto updateCommentDto,
+            User author,
+            Long eventId,
+            LocalDateTime created
+    ) {
+        return new Comment(
+                updateCommentDto.getId(),
+                author,
+                eventId,
+                updateCommentDto.getText(),
+                created,
+                Status.PENDING
+        );
+    }
 }
