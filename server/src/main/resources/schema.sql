@@ -68,6 +68,6 @@ CREATE TABLE IF NOT EXISTS comments (
     author_id BIGINT NOT NULL,
     event_id BIGINT NOT NULL,
     text VARCHAR(1024) NOT NULL,
-    event_date TIMESTAMP NOT NULL,
+    created TIMESTAMP NOT NULL,
     status VARCHAR(32) NOT NULL
 );

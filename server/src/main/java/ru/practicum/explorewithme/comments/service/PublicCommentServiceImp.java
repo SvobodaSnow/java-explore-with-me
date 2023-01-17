@@ -5,10 +5,12 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.practicum.explorewithme.comments.dto.CommentDto;
+import ru.practicum.explorewithme.comments.dto.CommentMapper;
 import ru.practicum.explorewithme.comments.model.Comment;
 import ru.practicum.explorewithme.comments.model.Status;
 import ru.practicum.explorewithme.comments.storage.CommentStorage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,6 +27,10 @@ public class PublicCommentServiceImp implements PublicCommentService {
                 Status.PUBLISHED,
                 PageRequest.of(page, size)
         );
-        return null;
+        List<CommentDto> commentDtoList = new ArrayList<>();
+        for (Comment comment : comments) {
+            commentDtoList.add(CommentMapper.toCommentDto(comment));
+        }
+        return commentDtoList;
     }
 }
