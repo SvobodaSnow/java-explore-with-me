@@ -1,7 +1,7 @@
 package ru.practicum.explorewithme.comments.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.explorewithme.comments.dto.CommentDto;
@@ -15,10 +15,10 @@ import java.text.MessageFormat;
 @Slf4j
 @Validated
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "/users/{userId}/comments/{eventId}")
 public class PrivateCommentController {
-    @Autowired
-    private PrivateCommentService privateCommentService;
+    private final PrivateCommentService privateCommentService;
 
     @PostMapping
     public CommentDto addNewComment(

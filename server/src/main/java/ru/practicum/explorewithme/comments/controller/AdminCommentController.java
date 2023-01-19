@@ -1,7 +1,7 @@
 package ru.practicum.explorewithme.comments.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.explorewithme.comments.dto.CommentDto;
@@ -16,10 +16,10 @@ import java.util.List;
 @Slf4j
 @Validated
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "/admin/comments")
 public class AdminCommentController {
-    @Autowired
-    private AdminCommentService adminCommentService;
+    private final AdminCommentService adminCommentService;
 
     @GetMapping
     public List<List<CommentDto>> getCommentForEvents(

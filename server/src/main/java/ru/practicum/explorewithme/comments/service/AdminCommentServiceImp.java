@@ -1,6 +1,6 @@
 package ru.practicum.explorewithme.comments.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import ru.practicum.explorewithme.comments.dto.CommentDto;
@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 
 @Service
 @Primary
+@RequiredArgsConstructor
 public class AdminCommentServiceImp implements AdminCommentService {
-    @Autowired
-    private CommentStorage commentStorage;
+    private final CommentStorage commentStorage;
 
     @Override
     public List<List<CommentDto>> getCommentForEvents(List<Long> ids, List<Status> statuses) {

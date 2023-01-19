@@ -1,6 +1,6 @@
 package ru.practicum.explorewithme.comments.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import ru.practicum.explorewithme.comments.dto.CommentDto;
@@ -14,11 +14,10 @@ import ru.practicum.explorewithme.users.storage.UserStorage;
 
 @Service
 @Primary
+@RequiredArgsConstructor
 public class PrivateCommentServiceImp implements PrivateCommentService {
-    @Autowired
-    private CommentStorage commentStorage;
-    @Autowired
-    private UserStorage userStorage;
+    private final CommentStorage commentStorage;
+    private final UserStorage userStorage;
 
     @Override
     public CommentDto addNewComment(NewCommentDto newCommentDto, Long userId, Long eventId) {
